@@ -1,0 +1,105 @@
+#!/bin/bash
+set -e
+
+homebrew=
+type -p brew >/dev/null && homebrew=1
+
+if ! type -p git >/dev/null; then
+  git() {
+    echo "Error: git is required to proceed. Please install git and try again." >&2
+    exit 1
+  }
+fi
+
+nodenv="$(command -v nodenv ~/.nodenv/bin/nodenv | head -1)"
+
+if [ -n "$nodenv" ]; then
+  echo "nodenv already seems installed in \`$nodenv'."
+  cd "${nodenv%/*}"
+
+  if [ -x ./brew ]; then
+    echo "Trying to update with Homebrew..."
+    brew update >/dev/null
+    if brew list nodenv | grep -q nodenv/HEAD; then
+      brew reinstall nodenv
+    else
+      brew upgrade nodenv
+    fi
+  elif git remote -v 2>/dev/null | grep -q nodenv; then
+    echo "Trying to update with git..."
+    git pull --tags origin master
+    cd ..
+  fi
+else
+  if [ -n "$homebrew" ]; then
+    echo "Installing nodenv with Homebrew..."
+    brew update
+    brew install nodenv
+    nodenv="$(brew --prefix)/bin/nodenv"
+  else
+    echo "Installing nodenv with git..."
+    mkdir -p ~/.nodenv
+    cd ~/.nodenv
+    git init
+    git remote add -f -t master origin https://github.com/nodenv/nodenv.git
+    git checkout -b master origin/master
+    nodenv=~/.nodenv/bin/nodenv
+
+    if [ ! -e versions ] && [ -w /opt/rubies ]; then
+      ln -s /opt/rubies versions
+    fi
+  fi
+fi
+
+nodenv_root="$("$nodenv" root)"
+node_build="$(command -v "$nodenv_root"/plugins/*/bin/nodenv-install nodenv-install | head -1)"
+
+echo
+if [ -n "$node_build" ]; then
+  echo "\`nodenv install' command already available in \`$node_build'."
+  cd "${node_build%/*}"
+
+  if [ -x ./brew ]; then
+    echo "Trying to update with Homebrew..."
+    brew update >/dev/null
+    brew upgrade node-build
+  elif git remote -v 2>/dev/null | grep -q node-build; then
+    echo "Trying to update with git..."
+    git pull origin master
+  fi
+else
+  if [ -n "$homebrew" ]; then
+    echo "Installing node-build with Homebrew..."
+    brew update
+    brew install node-build
+  else
+    echo "Installing node-build with git..."
+    mkdir -p "${nodenv_root}/plugins"
+    git clone https://github.com/nodenv/node-build.git "${nodenv_root}/plugins/node-build"
+  fi
+fi
+
+# Enable caching of nodenv-install downloads
+mkdir -p "${nodenv_root}/cache"
+
+echo
+echo "All done!"
+echo "Note that this installer does NOT edit your shell configuration files:"
+i=0
+nodenv_command="nodenv"
+if [ -x ~/.nodenv/bin ]; then
+  # shellcheck disable=SC2088
+  nodenv_command='~/.nodenv/bin/nodenv'
+fi
+echo "$((++i)). Run \`$nodenv_command init' to view instructions on how to configure nodenv for your shell."
+echo "$((++i)). Launch a new terminal window after editing shell configuration files."
+
+url="https://github.com/nodenv/nodenv-installer/raw/HEAD/bin/nodenv-doctor"
+if false && type -p curl >/dev/null; then
+  echo "$((++i)). (Optional) Run the doctor command to verify the installation:"
+  printf '   curl -fsSL "%s" | bash\n' "$url"
+elif type -p wget >/dev/null; then
+  echo "$((++i)). (Optional) Run the doctor command to verify the installation:"
+  printf '   wget -q "%s" -O- | bash\n' "$url"
+fi
+echo

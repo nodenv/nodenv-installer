@@ -1,9 +1,9 @@
 #!/bin/bash
-# Usage: rbenv doctor
-# Summary: Detects common problems in rbenv installation
+# Usage: nodenv doctor
+# Summary: Detects common problems in nodenv installation
 
 set -e
-[ -n "$RBENV_DEBUG" ] && set -x
+[ -n "$NODENV_DEBUG" ] && set -x
 
 count-lines() {
   printf "%d" "$(wc -l)"
@@ -54,39 +54,39 @@ fi
 
 warnings=0
 
-echo -n "Checking for \`rbenv' in PATH: "
-num_locations="$(command-list rbenv | fix-usr-bin | uniq | count-lines)"
+echo -n "Checking for \`nodenv' in PATH: "
+num_locations="$(command-list nodenv | fix-usr-bin | uniq | count-lines)"
 if [ "$num_locations" -eq 0 ]; then
   printc red "not found"
   echo
-  { if [ -x ~/.rbenv/bin/rbenv ]; then
-      echo "You seem to have rbenv installed in \`$HOME/.rbenv/bin', but that"
+  { if [ -x ~/.nodenv/bin/nodenv ]; then
+      echo "You seem to have nodenv installed in \`$HOME/.nodenv/bin', but that"
       echo "directory is not present in PATH. Please add it to PATH by configuring"
       echo "your shell initialization files."
     else
-      echo "Please refer to https://github.com/rbenv/rbenv#installation"
+      echo "Please refer to https://github.com/nodenv/nodenv#installation"
     fi
   } | indent
   exit 1
 elif [ "$num_locations" -eq 1 ]; then
-  printc green "$(command -v rbenv)"
+  printc green "$(command -v nodenv)"
   echo
 else
   printc yellow "multiple"
   echo
-  { echo "You seem to have multiple rbenv installs in the following locations."
+  { echo "You seem to have multiple nodenv installs in the following locations."
     echo "Please pick just one installation and remove the others."
     echo
-    command-list rbenv
+    command-list nodenv
   } | indent
   echo
   : $((warnings++))
 fi
 
-RBENV_ROOT="${RBENV_ROOT:-$(rbenv root)}"
+NODENV_ROOT="${NODENV_ROOT:-$(nodenv root)}"
 
-echo -n "Checking for rbenv shims in PATH: "
-shims_dir="${RBENV_ROOT}/shims"
+echo -n "Checking for nodenv shims in PATH: "
+shims_dir="${NODENV_ROOT}/shims"
 found=""
 precedence_problem=""
 IFS=: read -r -a path <<<"$PATH" || true
@@ -102,7 +102,7 @@ if [ -n "$found" ]; then
     printc yellow "found at wrong position"
     echo
     { echo "The directory \`$shims_dir' is present in PATH, but is listed too late."
-      echo "The Ruby version found in \`$precedence_problem' will have precedence. Please reorder your PATH."
+      echo "The Node version found in \`$precedence_problem' will have precedence. Please reorder your PATH."
     } | indent
     echo
     : $((warnings++))
@@ -113,67 +113,67 @@ if [ -n "$found" ]; then
 else
   printc red "not found"
   echo
-  { echo "The directory \`$shims_dir' must be present in PATH for rbenv to work."
-    echo "Please run \`rbenv init' and follow the instructions."
+  { echo "The directory \`$shims_dir' must be present in PATH for nodenv to work."
+    echo "Please run \`nodenv init' and follow the instructions."
   } | indent
   echo
   : $((warnings++))
 fi
 
-echo -n "Checking \`rbenv install' support: "
-rbenv_installs="$({ ls "$RBENV_ROOT"/plugins/*/bin/rbenv-install 2>/dev/null || true
-                    command-list rbenv-install 2>/dev/null || true
+echo -n "Checking \`nodenv install' support: "
+nodenv_installs="$({ ls "$NODENV_ROOT"/plugins/*/bin/nodenv-install 2>/dev/null || true
+                    command-list nodenv-install 2>/dev/null || true
                   } | uniq)"
-num_installs="$(count-lines <<<"$rbenv_installs")"
-if [ -z "$rbenv_installs" ]; then
+num_installs="$(count-lines <<<"$nodenv_installs")"
+if [ -z "$nodenv_installs" ]; then
   printc red "not found"
   echo
-  { echo "Unless you plan to add Ruby versions manually, you should install ruby-build."
-    echo "Please refer to https://github.com/rbenv/ruby-build#installation"
+  { echo "Unless you plan to add Node versions manually, you should install node-build."
+    echo "Please refer to https://github.com/nodenv/node-build#installation"
   }
   echo
   : $((warnings++))
 elif [ "$num_installs" -eq 1 ]; then
-  printc green "$rbenv_installs"
-  if [[ $rbenv_installs == "$RBENV_ROOT"/plugins/* ]]; then
-    rbenv_install_cmd="${rbenv_installs##*/}"
-    rbenv_install_version="$(rbenv "${rbenv_install_cmd#rbenv-}" --version || true)"
+  printc green "$nodenv_installs"
+  if [[ $nodenv_installs == "$NODENV_ROOT"/plugins/* ]]; then
+    nodenv_install_cmd="${nodenv_installs##*/}"
+    nodenv_install_version="$(nodenv "${nodenv_install_cmd#nodenv-}" --version || true)"
   else
-    rbenv_install_version="$("$rbenv_installs" --version || true)"
+    nodenv_install_version="$("$nodenv_installs" --version || true)"
   fi
-  printf " (%s)\n" "$rbenv_install_version"
+  printf " (%s)\n" "$nodenv_install_version"
 else
   printc yellow "multiple"
   echo
-  { echo "You seem to have multiple \`rbenv-install' in the following locations."
+  { echo "You seem to have multiple \`nodenv-install' in the following locations."
     echo "Please pick just one installation and remove the others."
     echo
-    echo "$rbenv_installs"
+    echo "$nodenv_installs"
   } | indent
   echo
   : $((warnings++))
 fi
 
-echo -n "Counting installed Ruby versions: "
-num_rubies="$(rbenv versions --bare | count-lines)"
-if [ "$num_rubies" -eq 0 ]; then
+echo -n "Counting installed Node versions: "
+num_nodes="$(nodenv versions --bare | count-lines)"
+if [ "$num_nodes" -eq 0 ]; then
   printc yellow "none"
   echo
-  echo "There aren't any Ruby versions installed under \`$RBENV_ROOT/versions'." | indent
+  echo "There aren't any Node versions installed under \`$NODENV_ROOT/versions'." | indent
   [ "$num_installs" -eq 0 ] || {
-    latest_version="$(rbenv install -l 2>/dev/null | grep -vFe - | tail -1)"
+    latest_version="$(nodenv install -l 2>/dev/null | grep -vFe - | tail -1)"
     [ -n "$latest_version" ] || latest_version="<version>"
-    echo -n "You can install Ruby versions like so: "
-    printc bright "rbenv install $latest_version"
+    echo -n "You can install Node versions like so: "
+    printc bright "nodenv install $latest_version"
     echo
   } | indent
 else
-  printc green "$num_rubies versions"
+  printc green "$num_nodes versions"
   echo
 fi
 
 echo -n "Auditing installed plugins: "
-hooks_list="$(rbenv hooks exec || true)"
+hooks_list="$(nodenv hooks exec || true)"
 IFS=$'\n' read -r -d '' -a hooks <<<"$hooks_list" || true
 plugin_broken=0
 for hook in "${hooks[@]}"; do
@@ -181,12 +181,12 @@ for hook in "${hooks[@]}"; do
   message=
   case "$hook" in
   */"~gem-rehash.bash" )
-    plugin_name=rbenv-gem-rehash
-    message="functionality is now included in rbenv core. Please remove the plugin."
+    plugin_name=nodenv-gem-rehash
+    message="functionality is now included in nodenv core. Please remove the plugin."
     ;;
   */"bundler.bash" )
-    plugin_name=rbenv-bundler
-    message="is considered harmful. Please remove the plugin and \`rm -rf \$(rbenv root)/shims && rbenv rehash'."
+    plugin_name=nodenv-bundler
+    message="is considered harmful. Please remove the plugin and \`rm -rf \$(nodenv root)/shims && nodenv rehash'."
     ;;
   esac
 
