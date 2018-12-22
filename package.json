@@ -1,0 +1,42 @@
+{
+  "name": "@nodenv/nodenv-installer",
+  "version": "0.1.0",
+  "description": "Installer and doctor scripts for nodenv",
+  "homepage": "https://github.com/nodenv/nodenv-installer#readme",
+  "contributors": [
+    "Jason Karns <jason@karns.name> (http://jason.karns.name)",
+    "Mislav Marohnić <mislav.marohnic@gmail.com> (https://github.com/mislav)"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nodenv/nodenv-installer.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nodenv/nodenv-installer/issues"
+  },
+  "directories": {
+    "bin": "bin"
+  },
+  "files": [
+    "bin"
+  ],
+  "scripts": {
+    "posttest": "npm run lint",
+    "lint": "git ls-files bin test/*.*sh | xargs shellcheck",
+    "postversion": "npm publish",
+    "prepublishOnly": "npm run publish:github && npm run publish:brew",
+    "publish:brew": "brew-publish",
+    "publish:github": "script/publish/github"
+  },
+  "devDependencies": {
+    "brew-publish": "^2.3.1"
+  },
+  "keywords": [
+    "nodenv",
+    "install",
+    "installer",
+    "doctor",
+    "debug",
+    "help"
+  ]
+}
