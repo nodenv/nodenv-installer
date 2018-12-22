@@ -10,6 +10,9 @@ Additionally, [node-build](https://github.com/nodenv/node-build#readme) is also
 installed if `nodenv install` is not already available.
 
 ```sh
+# with npx/npm
+npx @nodenv/nodenv-installer
+
 # with curl
 curl -fsSL https://github.com/nodenv/nodenv-installer/raw/HEAD/bin/nodenv-installer | bash
 
@@ -29,6 +32,9 @@ you are installing nodenv there, you are likely doing something wrong.
 You can verify the state of your nodenv installation with:
 
 ```sh
+# with npx/npm
+npx -p @nodenv/nodenv-installer nodenv-doctor
+
 # with curl
 curl -fsSL https://github.com/nodenv/nodenv-installer/raw/HEAD/bin/nodenv-doctor | bash
 
