@@ -1,5 +1,13 @@
 # nodenv installer & doctor scripts
 
+<!-- toc -->
+
+- [nodenv-installer](#nodenv-installer)
+- [nodenv-doctor](#nodenv-doctor)
+- [Credits](#credits)
+
+<!-- tocstop -->
+
 ## nodenv-installer
 
 The `nodenv-installer` script idempotently installs or updates nodenv on your
