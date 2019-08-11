@@ -1,5 +1,7 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
 set -e
+[ -n "$NODENV_DEBUG" ] && { export PS4='+ [${BASH_SOURCE##*/}:${LINENO}] '; set -x; }
 
 homebrew=
 type -p brew >/dev/null && homebrew=1

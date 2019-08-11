@@ -1,9 +1,9 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Usage: nodenv doctor
 # Summary: Detects common problems in nodenv installation
 
 set -e
-[ -n "$NODENV_DEBUG" ] && set -x
+[ -n "$NODENV_DEBUG" ] && { export PS4='+ [${BASH_SOURCE##*/}:${LINENO}] '; set -x; }
 
 count-lines() {
   printf "%d" "$(wc -l)"
@@ -49,6 +49,7 @@ else
   color_yellow=""
   # shellcheck disable=SC2034
   color_bright=""
+  # shellcheck disable=SC2034
   color_reset=""
 fi
 
@@ -176,19 +177,9 @@ echo -n "Auditing installed plugins: "
 hooks_list="$(nodenv hooks exec || true)"
 IFS=$'\n' read -r -d '' -a hooks <<<"$hooks_list" || true
 plugin_broken=0
-for hook in "${hooks[@]}"; do
+while IFS='' read -r hook; do
   plugin_name=
   message=
-  case "$hook" in
-  */"~gem-rehash.bash" )
-    plugin_name=nodenv-gem-rehash
-    message="functionality is now included in nodenv core. Please remove the plugin."
-    ;;
-  */"bundler.bash" )
-    plugin_name=nodenv-bundler
-    message="is considered harmful. Please remove the plugin and \`rm -rf \$(nodenv root)/shims && nodenv rehash'."
-    ;;
-  esac
 
   if [ -n "$plugin_name" ]; then
     if [ "$((plugin_broken++))" -eq 0 ]; then
