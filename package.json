@@ -34,7 +34,8 @@
     "bats": "^1.1.0",
     "bats-assert": "github:jasonkarns/bats-assert-1",
     "bats-support": "github:jasonkarns/bats-support",
-    "brew-publish": "^2.3.1"
+    "brew-publish": "^2.3.1",
+    "shellcheck": "github:jasonkarns/shellcheck#install-hook"
   },
   "keywords": [
     "nodenv",
