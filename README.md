@@ -18,14 +18,14 @@ Additionally, [node-build](https://github.com/nodenv/node-build#readme) is also
 installed if `nodenv install` is not already available.
 
 ```sh
-# with npx/npm
-npx @nodenv/nodenv-installer
-
 # with curl
 curl -fsSL https://github.com/nodenv/nodenv-installer/raw/HEAD/bin/nodenv-installer | bash
 
 # alternatively, with wget
 wget -q https://github.com/nodenv/nodenv-installer/raw/HEAD/bin/nodenv-installer -O- | bash
+
+# with npx/npm
+npx @nodenv/nodenv-installer
 ```
 
 The installer script is meant for casual use on your own development machine.
@@ -40,14 +40,14 @@ you are installing nodenv there, you are likely doing something wrong.
 You can verify the state of your nodenv installation with:
 
 ```sh
-# with npx/npm
-npx -p @nodenv/nodenv-installer nodenv-doctor
-
 # with curl
 curl -fsSL https://github.com/nodenv/nodenv-installer/raw/HEAD/bin/nodenv-doctor | bash
 
 # alternatively, with wget
 wget -q https://github.com/nodenv/nodenv-installer/raw/HEAD/bin/nodenv-doctor -O- | bash
+
+# with npx/npm
+npx -p @nodenv/nodenv-installer nodenv-doctor
 ```
 
 ## Credits
