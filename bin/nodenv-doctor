@@ -60,7 +60,7 @@ num_locations="$(command-list nodenv | fix-usr-bin | uniq | count-lines)"
 if [ "$num_locations" -eq 0 ]; then
   printc red "not found"
   echo
-  { if [ -x ~/.nodenv/bin/nodenv ]; then
+  { if [ -x "${NODENV_ROOT:-~/.nodenv}/bin/nodenv" ]; then
       echo "You seem to have nodenv installed in \`$HOME/.nodenv/bin', but that"
       echo "directory is not present in PATH. Please add it to PATH by configuring"
       echo "your shell initialization files."
@@ -68,6 +68,15 @@ if [ "$num_locations" -eq 0 ]; then
       echo "Please refer to https://github.com/nodenv/nodenv#installation"
     fi
   } | indent
+
+  if [ -n "$(find "${NODENV_ROOT:-~/.nodenv}/bin/nodenv" -mmin 1 2>/dev/null)" ]; then
+    printc bright "Recent installation detected.\n"
+    { echo "Complete the installation by configuring your PATH as above,"
+      echo "and re-run nodenv-doctor in a fresh shell."
+    } | indent
+    exit 0
+  fi
+
   exit 1
 elif [ "$num_locations" -eq 1 ]; then
   printc green "$(command -v nodenv)"
