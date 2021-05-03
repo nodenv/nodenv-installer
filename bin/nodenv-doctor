@@ -147,8 +147,10 @@ if [ "$num_nodes" -eq 0 ]; then
   printc yellow "none\n"
   echo "There aren't any Node versions installed under \`$NODENV_ROOT/versions'." | indent
   [ "$num_installs" -eq 0 ] || {
+    latest_version="$(nodenv install -l 2>/dev/null | grep -vFe - | tail -1)"
+    [ -n "$latest_version" ] || latest_version="<version>"
     echo -n "You can install Node versions like so: "
-    printc bright "nodenv install 2.2.4\n"
+    printc bright "nodenv install $latest_version\n"
   } | indent
 else
   printc green "%d versions\n" "$num_nodes"
