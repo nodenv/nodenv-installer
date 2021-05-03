@@ -28,6 +28,13 @@ wget -q https://raw.githubusercontent.com/nodenv/nodenv-installer/master/bin/nod
 npx @nodenv/nodenv-installer
 ```
 
+The installer script is meant for casual use on your own development machine.
+For automating installation across machines it's better to _avoid_ using this
+script in favor of fine-tuning nodenv & node-build installation manually. Some
+environments—such as container images meant for either Node development or
+production—should not be switching between multiple Node versions at all, so if
+you are installing nodenv there, you are likely doing something wrong.
+
 ## nodenv-doctor
 
 You can verify the state of your nodenv installation with:
