@@ -21,18 +21,6 @@ if ! type -p git >/dev/null; then
   }
 fi
 
-http() {
-  local url="$1"
-  if type -p curl >/dev/null; then
-    curl -fsSL "$url"
-  elif type -p wget >/dev/null; then
-    wget -q "$url" -O-
-  else
-    echo "Error: couldn't download file. No \`curl' or \`wget' found." >&2
-    return 1
-  fi
-}
-
 nodenv="$(command -v nodenv ~/.nodenv/bin/nodenv | head -1)"
 
 if [ -n "$nodenv" ]; then
@@ -42,9 +30,8 @@ if [ -n "$nodenv" ]; then
   if [ -x ./brew ]; then
     echo "Trying to update with Homebrew..."
     brew update >/dev/null
-    if [ "$(./nodenv --version)" \< "1.0.0" ] && brew list nodenv | grep -q nodenv/HEAD; then
-      brew uninstall nodenv
-      brew install nodenv
+    if brew list nodenv | grep -q nodenv/HEAD; then
+      brew reinstall nodenv
     else
       brew upgrade nodenv
     fi
@@ -108,16 +95,21 @@ fi
 mkdir -p "${nodenv_root}/cache"
 
 echo
-echo "Running doctor script to verify installation..."
-http https://github.com/nodenv/nodenv-installer/raw/master/bin/nodenv-doctor | "$BASH"
-
-echo
 echo "All done!"
-echo "Note that this installer doesn't yet configure your shell startup files:"
+echo "Note that this installer does NOT edit your shell configuration files:"
 i=0
 if [ -x ~/.nodenv/bin ]; then
   echo "$((++i)). You'll want to ensure that \`~/.nodenv/bin' is added to PATH."
 fi
-echo "$((++i)). Run \`nodenv init' to see instructions how to configure nodenv for your shell."
-echo "$((++i)). Launch a new terminal window to verify that the configuration is correct."
+echo "$((++i)). Run \`nodenv init' to view instructions on how to configure nodenv for your shell."
+echo "$((++i)). Launch a new terminal window after editing shell configuration files."
+
+url="https://github.com/nodenv/nodenv-installer/raw/master/bin/nodenv-doctor"
+if false && type -p curl >/dev/null; then
+  echo "$((++i)). (Optional) Run the doctor command to verify the installation:"
+  printf '   curl -fsSL "%s" | bash\n' "$url"
+elif type -p wget >/dev/null; then
+  echo "$((++i)). (Optional) Run the doctor command to verify the installation:"
+  printf '   wget -q "%s" -O- | bash\n' "$url"
+fi
 echo

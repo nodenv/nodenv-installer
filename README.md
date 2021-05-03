@@ -30,9 +30,7 @@ npx @nodenv/nodenv-installer
 
 ## nodenv-doctor
 
-After the installation, a separate `nodenv-doctor` script is run to verify the
-success of the installation and to detect common issues. You can run
-`nodenv-doctor` on your machine separately to verify the state of your install:
+You can verify the state of your nodenv installation with:
 
 ```sh
 # with curl
