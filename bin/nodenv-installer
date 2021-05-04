@@ -104,7 +104,7 @@ fi
 echo "$((++i)). Run \`nodenv init' to view instructions on how to configure nodenv for your shell."
 echo "$((++i)). Launch a new terminal window after editing shell configuration files."
 
-url="https://github.com/nodenv/nodenv-installer/raw/main/bin/nodenv-doctor"
+url="https://github.com/nodenv/nodenv-installer/raw/HEAD/bin/nodenv-doctor"
 if false && type -p curl >/dev/null; then
   echo "$((++i)). (Optional) Run the doctor command to verify the installation:"
   printf '   curl -fsSL "%s" | bash\n' "$url"
