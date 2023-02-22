@@ -30,11 +30,10 @@
     "publish:github": "script/publish/github"
   },
   "devDependencies": {
-    "@nodenv/nodenv": "^1.4.1",
-    "bats": "^1.9.0",
+    "@nodenv/nodenv": "^1",
+    "bats": "^1",
     "bats-assert": "github:jasonkarns/bats-assert-1",
     "bats-support": "github:jasonkarns/bats-support",
-    "brew-publish": "^2.3.1",
     "shellcheck": "^2"
   },
   "keywords": [
