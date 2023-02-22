@@ -1,0 +1,19 @@
+name: Release
+on:
+  push: { tags: "v*.*.*" }
+
+jobs:
+  github:
+    uses: nodenv/.github/.github/workflows/release.yml@main
+
+  npm:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          scope: '@nodenv'
+          registry-url: 'https://registry.npmjs.org'
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPMJS_TOKEN }}
