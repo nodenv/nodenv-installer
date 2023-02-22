@@ -1,6 +1,6 @@
 {
   "name": "@nodenv/nodenv-installer",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Installer and doctor scripts for nodenv",
   "homepage": "https://github.com/nodenv/nodenv-installer#readme",
   "contributors": [
