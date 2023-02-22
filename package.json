@@ -4,7 +4,7 @@
   "description": "Installer and doctor scripts for nodenv",
   "homepage": "https://github.com/nodenv/nodenv-installer#readme",
   "contributors": [
-    "Jason Karns <jason@karns.name> (http://jason.karns.name)",
+    "Jason Karns <jason.karns@gmail.com> (http://jasonkarns.com)",
     "Mislav Marohnić <mislav.marohnic@gmail.com> (https://github.com/mislav)"
   ],
   "repository": {
@@ -24,18 +24,14 @@
     "test": "bats ${CI:+--tap} test",
     "posttest": "npm run lint",
     "lint": "git ls-files bin test/*.*sh | xargs shellcheck",
-    "postversion": "npm publish",
-    "prepublishOnly": "npm run publish:github && npm run publish:brew",
-    "publish:brew": "brew-publish",
-    "publish:github": "script/publish/github"
+    "postversion": "git push --follow-tags"
   },
   "devDependencies": {
-    "@nodenv/nodenv": "^1.3.0",
-    "bats": "^1.1.0",
+    "@nodenv/nodenv": "^1",
+    "bats": "^1",
     "bats-assert": "github:jasonkarns/bats-assert-1",
     "bats-support": "github:jasonkarns/bats-support",
-    "brew-publish": "^2.3.1",
-    "shellcheck": "^0.3.0"
+    "shellcheck": "^2"
   },
   "keywords": [
     "nodenv",
