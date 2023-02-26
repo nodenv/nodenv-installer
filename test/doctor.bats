@@ -17,7 +17,7 @@ load test_helper
 
   assert_failure
   assert_line "Checking for \`nodenv' in PATH: not found"
-  assert_line "  You seem to have nodenv installed in \`$HOME/.nodenv/bin', but that"
+  assert_line "  You seem to have nodenv installed in \`$HOME/.nodenv/bin',"
 }
 
 @test "reports bin in PATH - OK" {
