@@ -29,8 +29,8 @@
   "devDependencies": {
     "@nodenv/nodenv": "^1",
     "bats": "^1",
-    "bats-assert": "github:jasonkarns/bats-assert-1",
-    "bats-support": "github:jasonkarns/bats-support",
+    "bats-assert": "github:bats-core/bats-assert",
+    "bats-support": "github:bats-core/bats-support",
     "shellcheck": "^2"
   },
   "keywords": [
