@@ -52,6 +52,6 @@ with_nodenv_plugin() {
 with_nodes() {
   local path="$NODENV_ROOT/versions"
   for node in "$@"; do
-    mkdir -p "$path/$node"
+    mkdir -p "$path/$node/bin"
   done
 }
