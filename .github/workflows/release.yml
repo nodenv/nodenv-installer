@@ -4,7 +4,7 @@ on:
 
 jobs:
   github:
-    uses: nodenv/.github/.github/workflows/release.yml@main
+    uses: nodenv/.github/.github/workflows/release.yml@v1
 
   npm:
     runs-on: ubuntu-latest
