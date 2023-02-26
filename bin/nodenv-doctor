@@ -55,10 +55,14 @@ echo -n "Checking for \`nodenv' in PATH: "
 num_locations="$(type -aP nodenv | uniq | wc -l)"
 if [ "$num_locations" -eq 0 ]; then
   printc red "not found\n"
-  { if [ -x "${NODENV_ROOT:-~/.nodenv}/bin/nodenv" ]; then
-      echo "You seem to have nodenv installed in \`$HOME/.nodenv/bin', but that"
-      echo "directory is not present in PATH. Please add it to PATH by configuring"
-      echo "your \`~/${bashrc}', \`~/.zshrc', or \`~/.config/fish/config.fish'."
+  { if [ -x "$HOME/.nodenv/bin/nodenv" ] || [ -x "${NODENV_ROOT:-}/bin/nodenv" ]; then
+      [ -x "$HOME/.nodenv/bin/nodenv" ] &&
+        echo "You seem to have nodenv installed in \`$HOME/.nodenv/bin',"
+      [ -x "${NODENV_ROOT:-}/bin/nodenv" ] &&
+        echo "You seem to have nodenv installed in \`$NODENV_ROOT/bin',"
+      echo "but that directory is not present in PATH."
+      echo "Please add it to PATH by configuring your "
+      echo "\`~/${bashrc}', \`~/.zshrc', or \`~/.config/fish/config.fish'."
     else
       echo "Please refer to https://github.com/nodenv/nodenv#installation"
     fi
