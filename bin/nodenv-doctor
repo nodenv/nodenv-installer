@@ -189,7 +189,7 @@ echo -n "Auditing installed plugins: "
 hooks_list="$(nodenv hooks exec || true)"
 IFS=$'\n' read -r -d '' -a hooks <<<"$hooks_list" || true
 plugin_broken=0
-while IFS='' read -r hook; do
+for hook in "${hooks[@]}"; do
   plugin_name=
   message=
 
