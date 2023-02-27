@@ -17,15 +17,20 @@ install/upgrade`. Otherwise, nodenv is installed under `~/.nodenv`.
 Additionally, [node-build](https://github.com/nodenv/node-build#readme) is also
 installed if `nodenv install` is not already available.
 
-**with curl**
+with curl:
+
   ```sh
   curl -fsSL https://github.com/nodenv/nodenv-installer/raw/HEAD/bin/nodenv-installer | bash
   ```
-**with wget**
+
+with wget:
+
   ```sh
   wget -q https://github.com/nodenv/nodenv-installer/raw/HEAD/bin/nodenv-installer -O- | bash
   ```
-**with npx/npm**
+
+with npx/npm:
+
   ```sh
   npx @nodenv/nodenv-installer
   ```
@@ -41,15 +46,20 @@ you are installing nodenv there, you are likely doing something wrong.
 
 You can verify the state of your nodenv installation with:
 
-**with curl**
+with curl:
+
   ```sh
   curl -fsSL https://github.com/nodenv/nodenv-installer/raw/HEAD/bin/nodenv-doctor | bash
   ```
-**with wget**
+
+with wget:
+
   ```sh
   wget -q https://github.com/nodenv/nodenv-installer/raw/HEAD/bin/nodenv-doctor -O- | bash
   ```
-**with npx/npm**
+
+with npx/npm:
+
   ```sh
   npx -p @nodenv/nodenv-installer nodenv-doctor
   ```
@@ -59,4 +69,4 @@ You can verify the state of your nodenv installation with:
 Forked from [Mislav Marohnić][mislav]'s [rbenv-installer][] and modified for node.
 
 [mislav]: https://github.com/mislav
-  [rbenv-installer]: https://github.com/rbenv/rbenv-installer
+[rbenv-installer]: https://github.com/rbenv/rbenv-installer
