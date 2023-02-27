@@ -106,7 +106,7 @@ IFS=: read -r -a path <<<"$PATH" || true
 for dir in "${path[@]}"; do
   if [ "$dir" = "$shims_dir" ]; then
     found=true
-  elif [ -x "$dir"/ruby ] && [ -z "$found" ]; then
+  elif [ -x "$dir"/node ] && [ -z "$found" ]; then
     precedence_problem="$dir"
   fi
 done
