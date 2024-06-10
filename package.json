@@ -32,7 +32,7 @@
     "bats": "^1",
     "bats-assert": "github:bats-core/bats-assert",
     "bats-support": "github:bats-core/bats-support",
-    "shellcheck": "^2"
+    "shellcheck": "^3"
   },
   "keywords": [
     "nodenv",
