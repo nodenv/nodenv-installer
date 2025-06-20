@@ -1,0 +1,25 @@
+# This workflow keeps the master branch in sync with main,
+# after main has been selected as the default branch for the repository.
+# This way users that cloned prior to the switch-over can continue to pull;
+# but any new clones will have main as the default branch.
+#
+# The following commands should be run by users that have an old clone,
+# and want to switch over to main as the default branch:
+#
+# ```console
+# git branch -m master main
+# git fetch origin
+# git branch -u origin/main main
+# git remote set-head origin -a
+# ```
+
+name: Sync Default Branch
+on:
+  push: { branches: main }
+  workflow_dispatch:
+permissions: read-all
+
+jobs:
+  sync:
+    uses: nodenv/.github/.github/workflows/sync-default-branch.yml@v5
+    permissions: { contents: write }
