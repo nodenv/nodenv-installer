@@ -7,6 +7,6 @@ permissions: {contents: read}
 jobs:
   release:
     permissions: {contents: write}
-    uses: nodenv/.github/.github/workflows/release.yml@v4
+    uses: nodenv/.github/.github/workflows/release.yml@v5
     with:
       homebrew: false
