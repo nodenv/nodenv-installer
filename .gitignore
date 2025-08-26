@@ -1,2 +1,4 @@
 /node_modules
+/package*/
+/tmp
 /nodenv-nodenv-installer-*.tgz

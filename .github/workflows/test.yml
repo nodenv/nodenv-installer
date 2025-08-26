@@ -1,11 +1,11 @@
 name: Test
 on:
   pull_request:
-  push: {branches: main}
-  schedule: [{cron: '0 0 10 * *'}] # monthly https://crontab.guru/#0_0_10_*_*
+  push: { branches: main }
+  schedule: [{ cron: "0 0 10 * *" }] # monthly https://crontab.guru/#0_0_10_*_*
   workflow_dispatch:
-permissions: {contents: read}
 
+permissions: {}
 jobs:
   test:
     uses: nodenv/.github/.github/workflows/test.yml@v6

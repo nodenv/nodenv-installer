@@ -3,7 +3,10 @@
 # Summary: Detects common problems in nodenv installation
 
 set -e
-[ -n "$NODENV_DEBUG" ] && { export PS4='+ [${BASH_SOURCE##*/}:${LINENO}] '; set -x; }
+[ -n "$NODENV_DEBUG" ] && {
+  export PS4='+ [${BASH_SOURCE##*/}:${LINENO}] '
+  set -x
+}
 
 count-lines() {
   printf "%d" "$(wc -l)"
@@ -60,7 +63,8 @@ num_locations="$(command-list nodenv | fix-usr-bin | uniq | count-lines)"
 if [ "$num_locations" -eq 0 ]; then
   printc red "not found"
   echo
-  { if [ -x "$HOME/.nodenv/bin/nodenv" ] || [ -x "${NODENV_ROOT:-}/bin/nodenv" ]; then
+  {
+    if [ -x "$HOME/.nodenv/bin/nodenv" ] || [ -x "${NODENV_ROOT:-}/bin/nodenv" ]; then
       [ -x "$HOME/.nodenv/bin/nodenv" ] &&
         echo "You seem to have nodenv installed in \`$HOME/.nodenv/bin',"
       [ -x "${NODENV_ROOT:-}/bin/nodenv" ] &&
@@ -74,7 +78,8 @@ if [ "$num_locations" -eq 0 ]; then
 
   if [ -n "$(find "${NODENV_ROOT:-~/.nodenv}/bin/nodenv" -mmin 1 2>/dev/null)" ]; then
     printc bright "Recent installation detected.\n"
-    { echo "Complete the installation by configuring your PATH as above,"
+    {
+      echo "Complete the installation by configuring your PATH as above,"
       echo "and re-run nodenv-doctor in a fresh shell."
     } | indent
     exit 0
@@ -87,7 +92,8 @@ elif [ "$num_locations" -eq 1 ]; then
 else
   printc yellow "multiple"
   echo
-  { echo "You seem to have multiple nodenv installs in the following locations."
+  {
+    echo "You seem to have multiple nodenv installs in the following locations."
     echo "Please pick just one installation and remove the others."
     echo
     command-list nodenv
@@ -114,7 +120,8 @@ if [ -n "$found" ]; then
   if [ -n "$precedence_problem" ]; then
     printc yellow "found at wrong position"
     echo
-    { echo "The directory \`$shims_dir' is present in PATH, but is listed too late."
+    {
+      echo "The directory \`$shims_dir' is present in PATH, but is listed too late."
       echo "The Node version found in \`$precedence_problem' will have precedence. Please reorder your PATH."
     } | indent
     echo
@@ -126,7 +133,8 @@ if [ -n "$found" ]; then
 else
   printc red "not found"
   echo
-  { echo "The directory \`$shims_dir' must be present in PATH for nodenv to work."
+  {
+    echo "The directory \`$shims_dir' must be present in PATH for nodenv to work."
     echo "Please run \`nodenv init' and follow the instructions."
   } | indent
   echo
@@ -134,14 +142,16 @@ else
 fi
 
 echo -n "Checking \`nodenv install' support: "
-nodenv_installs="$({ ls "$NODENV_ROOT"/plugins/*/bin/nodenv-install 2>/dev/null || true
-                    command-list nodenv-install 2>/dev/null || true
-                  } | uniq)"
+nodenv_installs="$({
+  ls "$NODENV_ROOT"/plugins/*/bin/nodenv-install 2>/dev/null || true
+  command-list nodenv-install 2>/dev/null || true
+} | uniq)"
 num_installs="$(count-lines <<<"$nodenv_installs")"
 if [ -z "$nodenv_installs" ]; then
   printc red "not found"
   echo
-  { echo "Unless you plan to add Node versions manually, you should install node-build."
+  {
+    echo "Unless you plan to add Node versions manually, you should install node-build."
     echo "Please refer to https://github.com/nodenv/node-build#installation"
   }
   echo
@@ -158,7 +168,8 @@ elif [ "$num_installs" -eq 1 ]; then
 else
   printc yellow "multiple"
   echo
-  { echo "You seem to have multiple \`nodenv-install' in the following locations."
+  {
+    echo "You seem to have multiple \`nodenv-install' in the following locations."
     echo "Please pick just one installation and remove the others."
     echo
     echo "$nodenv_installs"
@@ -198,7 +209,8 @@ for hook in "${hooks[@]}"; do
       printc yellow "warning"
       echo
     fi
-    { printc bright "$plugin_name"
+    {
+      printc bright "$plugin_name"
       echo " $message"
       echo "  (found in \`${hook}')"
     } | indent
