@@ -19,21 +19,21 @@ installed if `nodenv install` is not already available.
 
 with curl:
 
-  ```sh
-  curl -fsSL https://github.com/nodenv/nodenv-installer/raw/HEAD/bin/nodenv-installer | bash
-  ```
+```sh
+curl -fsSL https://github.com/nodenv/nodenv-installer/raw/HEAD/bin/nodenv-installer | bash
+```
 
 with wget:
 
-  ```sh
-  wget -q https://github.com/nodenv/nodenv-installer/raw/HEAD/bin/nodenv-installer -O- | bash
-  ```
+```sh
+wget -q https://github.com/nodenv/nodenv-installer/raw/HEAD/bin/nodenv-installer -O- | bash
+```
 
 with npx/npm:
 
-  ```sh
-  npx @nodenv/nodenv-installer
-  ```
+```sh
+npx @nodenv/nodenv-installer
+```
 
 The installer script is meant for casual use on your own development machine.
 For automating installation across machines it's better to _avoid_ using this
@@ -48,21 +48,21 @@ You can verify the state of your nodenv installation with:
 
 with curl:
 
-  ```sh
-  curl -fsSL https://github.com/nodenv/nodenv-installer/raw/HEAD/bin/nodenv-doctor | bash
-  ```
+```sh
+curl -fsSL https://github.com/nodenv/nodenv-installer/raw/HEAD/bin/nodenv-doctor | bash
+```
 
 with wget:
 
-  ```sh
-  wget -q https://github.com/nodenv/nodenv-installer/raw/HEAD/bin/nodenv-doctor -O- | bash
-  ```
+```sh
+wget -q https://github.com/nodenv/nodenv-installer/raw/HEAD/bin/nodenv-doctor -O- | bash
+```
 
 with npx/npm:
 
-  ```sh
-  npx -p @nodenv/nodenv-installer nodenv-doctor
-  ```
+```sh
+npx -p @nodenv/nodenv-installer nodenv-doctor
+```
 
 ## Credits
 
