@@ -17,7 +17,7 @@ install/upgrade`. Otherwise, nodenv is installed under `~/.nodenv`.
 Additionally, [node-build](https://github.com/nodenv/node-build#readme) is also
 installed if `nodenv install` is not already available.
 
-with curl:
+with cURL:
 
 ```sh
 curl -fsSL https://github.com/nodenv/nodenv-installer/raw/HEAD/bin/nodenv-installer | bash
@@ -46,7 +46,7 @@ you are installing nodenv there, you are likely doing something wrong.
 
 You can verify the state of your nodenv installation with:
 
-with curl:
+with cURL:
 
 ```sh
 curl -fsSL https://github.com/nodenv/nodenv-installer/raw/HEAD/bin/nodenv-doctor | bash
