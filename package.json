@@ -24,7 +24,7 @@
   "scripts": {
     "test": "bats ${CI:+--tap} test",
     "posttest": "npm run lint",
-    "lint": "git ls-files bin test | xargs shellcheck",
+    "lint": "git ls-files bin test */*.*sh | xargs shellcheck",
     "postversion": "git push --follow-tags"
   },
   "devDependencies": {
