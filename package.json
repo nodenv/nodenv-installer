@@ -28,11 +28,11 @@
     "postversion": "git push --follow-tags"
   },
   "devDependencies": {
-    "@nodenv/nodenv": "^1",
-    "bats": "^1",
-    "bats-assert": "^2.2.0",
+    "@nodenv/nodenv": "1",
+    "bats": "1",
+    "bats-assert": "2",
     "bats-support": "^0.3.0",
-    "shellcheck": "^4"
+    "shellcheck": "4"
   },
   "keywords": [
     "nodenv",
